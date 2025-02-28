@@ -44,7 +44,7 @@ Perfect for researchers, students, and academics who need to quickly digest and 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/virtual-research-assistant.git
+git clone https://github.com/Alleyss/research_assistant_agent.git
 cd virtual-research-assistant
 
 # Create a virtual environment
