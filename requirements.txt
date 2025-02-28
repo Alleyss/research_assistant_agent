@@ -1,0 +1,20 @@
+# PDF Parsing
+pypdf2
+pdfminer.six
+
+# Document Summarization
+transformers
+torch
+sentencepiece  # Required for T5/BART tokenization
+
+# Keyword Extraction & Q&A
+langchain
+openai  # If using OpenAI models for LLM tasks
+faiss-cpu  # If using FAISS for vector search
+tiktoken  # For token counting (useful with OpenAI models)
+
+# Audio Summaries
+elevenlabs
+
+# Workflow Orchestration
+langchain
