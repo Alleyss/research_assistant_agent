@@ -1,6 +1,7 @@
 # PDF Parsing
 # pypdf2
 # pdfminer.six
+# unstructured[all-docs]
 
 # Document Summarization
 # transformers
