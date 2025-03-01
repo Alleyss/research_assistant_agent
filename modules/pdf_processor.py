@@ -1,7 +1,7 @@
 from unstructured.partition.pdf import partition_pdf
 
 
-def get_pdf(file_path: str):
+def get_pdf_elements(file_path: str):
     elements = partition_pdf(
         filename=file_path,  # mandatory
         languages=["eng"],
