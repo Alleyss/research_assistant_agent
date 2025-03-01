@@ -10,7 +10,7 @@ text = extract_text_from_pdf("ace.pdf")
 
 import re
 import spacy
-
+0
 def clean_text(text):
     # Remove headers/footers (customize based on your PDF patterns)
     text = re.sub(r'Page \d+ of \d+', '', text)
