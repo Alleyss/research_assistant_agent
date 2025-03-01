@@ -29,3 +29,5 @@ python-dotenv
 pdfminer.six
 spacy
 unstructured[all-docs]
+#vector db
+qdrant-client
