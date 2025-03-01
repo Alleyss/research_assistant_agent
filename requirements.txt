@@ -1,6 +1,6 @@
 # PDF Parsing
-pypdf2
-pdfminer.six
+# pypdf2
+# pdfminer.six
 
 # Document Summarization
 # transformers
@@ -11,6 +11,8 @@ pdfminer.six
 langchain
 # lets use gemini, has bigger token size and free
 # pip install -q -U google-genai
+# pip install -U langchain-google-genai
+langchain-google-genai
 google-genai
 #openai  # If using OpenAI models for LLM tasks
 # faiss-cpu  # If using FAISS for vector search
@@ -20,5 +22,5 @@ google-genai
 # koi open source alternative is better.
 # elevenlabs
 
-# Workflow Orchestration
-langchain
+# others
+python-dotenv
