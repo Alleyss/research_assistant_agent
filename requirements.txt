@@ -3,18 +3,22 @@ pypdf2
 pdfminer.six
 
 # Document Summarization
-transformers
-torch
-sentencepiece  # Required for T5/BART tokenization
+# transformers
+# torch
+# sentencepiece  # Required for T5/BART tokenization
 
 # Keyword Extraction & Q&A
 langchain
-openai  # If using OpenAI models for LLM tasks
-faiss-cpu  # If using FAISS for vector search
-tiktoken  # For token counting (useful with OpenAI models)
+# lets use gemini, has bigger token size and free
+# pip install -q -U google-genai
+google-genai
+#openai  # If using OpenAI models for LLM tasks
+# faiss-cpu  # If using FAISS for vector search
+# tiktoken  # For token counting (useful with OpenAI models)
 
 # Audio Summaries
-elevenlabs
+# koi open source alternative is better.
+# elevenlabs
 
 # Workflow Orchestration
 langchain
