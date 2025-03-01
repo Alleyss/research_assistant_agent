@@ -1,6 +1,6 @@
-from utils.preprocessing import get_gemini_api_key, get_qa_engine
+from utils.preprocessing import get_gemini_api_key, get_gemini_llm
 
 
 GEMINI_API = get_gemini_api_key()
-engine = get_qa_engine(GEMINI_API)
+engine = get_gemini_llm(GEMINI_API)
 print(engine)
