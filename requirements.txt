@@ -25,3 +25,6 @@ google-genai
 
 # others
 python-dotenv
+#pdf extraction
+pdfminer.six
+spacy
