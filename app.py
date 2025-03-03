@@ -10,7 +10,7 @@ engine = get_gemini_llm(GEMINI_API)
 # cleaned_text = clean_text(raw_text)
 # print(cleaned_text[:500])  # first 500 characters
 
-data = get_pdf_elements("cache_files/pdfs/ace.pdf")
+data = get_pdf_elements("cache_files/pdfs/2006.11512.pdf")
 for element in data:
     print(element)
     print("\n")

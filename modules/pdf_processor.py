@@ -5,10 +5,10 @@ def get_pdf_elements(file_path: str):
     elements = partition_pdf(
         filename=file_path,  # mandatory
         languages=["eng"],
-        strategy="fast",  # mandatory to use ``hi_res`` strategy
+        strategy="hi_res",  # mandatory to use ``hi_res`` strategy
         extract_images_in_pdf=True,  # mandatory to set as ``True``
         extract_image_block_types=["Image", "Table"],  # optional
         extract_image_block_to_payload=False,  # optional
-        extract_image_block_output_dir="cache_files/images",  # optional - only works when ``extract_image_block_to_payload=False``
+        extract_image_block_output_dir="../cache_files/images",  # optional - only works when ``extract_image_block_to_payload=False``
     )
     return elements
