@@ -28,3 +28,6 @@ python-dotenv
 #pdf extraction
 pdfminer.six
 spacy
+unstructured[all-docs]
+#vector db
+qdrant-client

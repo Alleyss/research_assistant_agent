@@ -5,7 +5,7 @@ def get_pdf_elements(file_path: str):
     elements = partition_pdf(
         filename=file_path,  # mandatory
         languages=["eng"],
-        strategy="hi_res",  # mandatory to use ``hi_res`` strategy
+        strategy="fast",  # mandatory to use ``hi_res`` strategy
         extract_images_in_pdf=True,  # mandatory to set as ``True``
         extract_image_block_types=["Image", "Table"],  # optional
         extract_image_block_to_payload=False,  # optional
