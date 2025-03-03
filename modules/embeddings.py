@@ -1,13 +1,4 @@
-# from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from utils.preprocessing import get_gemini_api_key
-# def chunk_text(text, chunk_size=500, chunk_overlap=50):
-#     """Splits extracted PDF text into manageable chunks for embeddings."""
-#     text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
-#     chunks = text_splitter.split_text(text)
-#     return chunks
-
-#embedding using gemini 
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 def generate_embeddings(chunks_list):
