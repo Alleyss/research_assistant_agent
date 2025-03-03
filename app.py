@@ -16,7 +16,7 @@ data = get_pdf_elements("cache_files/pdfs/ace.pdf")
 #     print("\n")
 
 embeddings=generate_embeddings(data)
-# for em in embeddings:
-#     print(em)
-#     print("\n")
+for em in embeddings:
+    print(em)
+    print("\n")
 
