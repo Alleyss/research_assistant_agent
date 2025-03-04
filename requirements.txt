@@ -1,7 +1,7 @@
 # PDF Parsing
 # pypdf2
 # pdfminer.six
-# unstructured[all-docs]
+unstructured[all-docs]
 
 # Document Summarization
 # transformers
@@ -25,9 +25,3 @@ google-genai
 
 # others
 python-dotenv
-#pdf extraction
-pdfminer.six
-spacy
-unstructured[all-docs]
-#vector db
-qdrant-client
