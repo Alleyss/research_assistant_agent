@@ -22,7 +22,7 @@ pdf_chunks = pdf_chunkify(pdf_docs)
 ## VECTOR STORE
 init_vector_store(embedding_model)
 add_pdfdocument_to_vector(pdf_chunks)
-state = {"question": "What are example of Infrastructure as code tools?"}
+state = {"question": "What is the syllabus of associate cloud engineer exam"}
 response = retrieve_pdfdocument_from_vector(state)
 # print(response)
 

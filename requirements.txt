@@ -25,3 +25,4 @@ google-genai
 
 # others
 python-dotenv
+langchain-unstructured
