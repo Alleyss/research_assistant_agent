@@ -204,5 +204,55 @@
             "role": "assistant",
             "content": "Carbon nanotubes (CNTs), including MWCNTs and CNFs with sharp tips, are used in gas sensors due to their high surface area, electrical conductivity, and sensitivity. They are used for detecting gases, monitoring volatile organic compounds, and in healthcare and industrial control processes. They can also monitor the disintegration of food and facilitate researches on the growth of plants."
         }
+    ],
+    "sarcasm paper": [
+        {
+            "role": "user",
+            "content": "which model is suggested for sacasm detection. What is the achieved accuracy. Who are the authors, research paper published date in a tabular format"
+        },
+        {
+            "role": "assistant",
+            "content": "I am sorry, but the provided context does not contain the answer to your question. Therefore, I am unable to provide information about suggested models for sarcasm detection, their accuracy, authors, or publication dates."
+        },
+        {
+            "role": "user",
+            "content": "what is the document about"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm sorry, but I do not have any context to provide an answer."
+        },
+        {
+            "role": "user",
+            "content": "which model is suggested for sacasm detection. What is the achieved accuracy. Who are the authors, research paper published date in a tabular format"
+        },
+        {
+            "role": "assistant",
+            "content": "Based on the provided context, the suggested model for sarcasm detection is \"Proposed MUStARD\" and \"Proposed MUStARD++\". The achieved F1 score for \"Proposed MUStARD\" is 72, while for \"Proposed MUStARD++\" it is 70.2. I am unable to provide the authors and publication date, as it is not mentioned in the context."
+        },
+        {
+            "role": "user",
+            "content": "tell me about mustard"
+        },
+        {
+            "role": "assistant",
+            "content": "I'm sorry, but the provided context discusses annotation protocols, emotion analysis, and sarcasm detection in datasets like MUStARD and MELD. It does not contain information about mustard as a condiment or plant."
+        },
+        {
+            "role": "user",
+            "content": "are you not capable of generating text besides the context of the document"
+        },
+        {
+            "role": "assistant",
+            "content": "The document focuses on feature extraction methods from text, audio, and video modalities. It uses the BART Large model to encode text and create embedding representations. The purpose is to detect sarcasm."
+        },
+        {
+            "role": "user",
+            "content": "where is coffee grown "
+        },
+        {
+            "role": "assistant",
+            "content": "I'm sorry, but the provided context does not contain information about where coffee is grown. The text focuses on sarcasm detection in TV shows and related data collection methods."
+        }
     ]
 }
