@@ -9,8 +9,8 @@ def get_prompt_1(question, context):
     return PROMTP_1
 
 
-def generate(state, llm):
-    docs_content = "\n\n".join(doc.page_content for doc in state["context"])
-    messages = get_prompt_1(state["question"], docs_content)
+def generate(question, llm, context):
+    docs_content = "\n\n".join(doc.page_content for doc in context)
+    messages = get_prompt_1(question=question, context=docs_content)
     response = llm.invoke(messages)
     return {"answer": response.content}

@@ -5,6 +5,7 @@ from modules.vector_store import (
     add_pdfdocument_to_vector,
     retrieve_pdfdocument_from_vector,
     init_vector_store,
+    clear_vector_store,
 )
 from modules.llm_generate import generate
 
@@ -18,23 +19,29 @@ def init_model_in_memory():
     return llm, embedding_model
 
 
-def set_pdf_in_memory(PDF_FILE_PATH, embedding_model):
-    pdf_docs = pdf_loader(PDF_FILE_PATH)
+def set_pdf_in_memory(session_id, pdf_path, embedding_model):
+    pdf_docs = pdf_loader(pdf_path)
     pdf_chunks = pdf_chunkify(pdf_docs)
 
     ## VECTOR STORE
-    init_vector_store(embedding_model)
-    add_pdfdocument_to_vector(pdf_chunks)
+    init_vector_store(session_id, embedding_model)
+    add_pdfdocument_to_vector(session_id, pdf_chunks)    
+    print(f"Adding PDF to vector store : {pdf_path}")
 
 
-def get_chat_response(user_message, llm):
-    state = {"question": user_message}
-    response = retrieve_pdfdocument_from_vector(state)
-    ## LLM GENERATE
-    state["context"] = response["context"]
-    response = generate(state, llm)
-    return response["answer"]
 
-    ## OUTPUT
-    # print(f'Question : {state["question"]}')
-    # print(f'Answer : {state["answer"]}')
+def get_chat_response(user_message, llm, context):
+    response = generate(user_message, llm, context)
+    return response['answer']
+
+
+def rebuild_session_vector_store(session_id, pdf_files, embedding_model):
+    clear_vector_store(session_id)
+    print(f"Rebuilding session vector store id : {session_id}")
+
+    # Create a new vector store
+    init_vector_store(session_id, embedding_model)
+
+    # Add each PDF to the vector store
+    for pdf_path in pdf_files:
+        set_pdf_in_memory(session_id, pdf_path, embedding_model)
