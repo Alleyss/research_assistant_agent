@@ -18,7 +18,7 @@ from sessions_utils import (
 from utils.save_files import save_uploaded_file
 
 llm, embedding_model = init_model_in_memory()
-st.title("Doc RAG Chatbot for Streamlit")
+st.title("PaperPal")
 
 # Load existing sessions
 sessions = load_sessions()
@@ -31,7 +31,7 @@ if "initialized_vectors" not in st.session_state:
 
 # Sidebar for session Management
 with st.sidebar:
-    st.header("sessions")
+    st.header("Chat Sessions")
     new_session_title = st.text_input("New session Title")
     if st.button("Create New session"):
         if new_session_title:
