@@ -26,3 +26,8 @@ google-genai
 # others
 python-dotenv
 langchain-unstructured
+
+#for searching and downloading papers
+requests 
+arxiv 
+semanticscholar
