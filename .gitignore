@@ -1,8 +1,8 @@
 venv
 .env
-utils\__pycache__
-modules\rag\__pycache__
-modules\fetch_papers\__pycache__
-modules\chat_db\__pycache__
+utils/__pycache__
+modules/rag/__pycache__
+modules/fetch_papers/__pycache__
+modules/chat_db/__pycache__
 downloads
 

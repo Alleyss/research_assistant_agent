@@ -1,3 +1,5 @@
+import os
+import requests
 import streamlit as st
 from modules.process_controller import (
     get_chat_response,
@@ -16,8 +18,9 @@ from modules.chat_db.chat_session_utils import (
     remove_pdf_from_session,
 )
 from utils.save_files import save_uploaded_file
-from modules.fetch_papers.search_paper import search_papers,download_pdf  # Updated import
+from modules.fetch_papers.search_paper import search_papers
 
+# Initialize LLM and Embedding Model
 llm, embedding_model = init_model_in_memory()
 st.title("PaperPal")
 
@@ -30,7 +33,7 @@ if "selected_session" not in st.session_state:
 if "initialized_vectors" not in st.session_state:
     st.session_state.initialized_vectors = set()
 
-# Sidebar for session Management
+# Sidebar for session management
 with st.sidebar:
     st.header("Chat Sessions")
     new_session_title = st.text_input("New session Title")
@@ -40,11 +43,11 @@ with st.sidebar:
             st.session_state.selected_session = new_session_title
             st.rerun()
 
-    # Display the session buttons (menu)
+    # Display available sessions
     if sessions:
         for session_title in sessions:
             if st.button(session_title, key=session_title):
-                # If changing sessions, clear the previous vector store from memory
+                # Clear previous vector store if switching sessions
                 if (
                     st.session_state.selected_session is not None
                     and st.session_state.selected_session != session_title
@@ -54,10 +57,10 @@ with st.sidebar:
                 st.session_state.selected_session = session_title
                 st.rerun()
 
-# Main content area for displaying conversation
+# Main content area for conversation
 if st.session_state.selected_session:
     session_id = st.session_state.selected_session
-    st.header(f"Session: {st.session_state.selected_session}")
+    st.header(f"Session: {session_id}")
 
     # Load session PDFs into vector store if not already done
     if session_id not in st.session_state.initialized_vectors:
@@ -67,10 +70,9 @@ if st.session_state.selected_session:
         with st.spinner("Loading documents..."):
             rebuild_session_vector_store(session_id, pdf_paths, embedding_model)
 
-        # Mark this session as initialized
         st.session_state.initialized_vectors.add(session_id)
 
-    # Display current PDFs attached to this session with remove buttons
+    # Display attached PDFs with removal option
     session_pdfs = get_session_pdfs(session_id)
     if session_pdfs:
         st.subheader("Attached Documents")
@@ -80,9 +82,7 @@ if st.session_state.selected_session:
                 st.text(f"{i+1}. {pdf['name']}")
             with col2:
                 if st.button("Remove", key=f"remove_{i}"):
-                    # Remove PDF from session data
                     if remove_pdf_from_session(session_id, pdf["name"]):
-                        # Re-initialize vector store without this PDF
                         updated_pdfs = get_session_pdfs(session_id)
                         pdf_paths = [p["path"] for p in updated_pdfs]
 
@@ -94,9 +94,8 @@ if st.session_state.selected_session:
                         st.success(f"Removed {pdf['name']}")
                         st.rerun()
 
-    # Compact PDF uploader with expander
+    # PDF Uploader Section
     with st.expander("Add Document", expanded=False):
-        # Make the uploader more compact
         col1, col2 = st.columns([3, 1])
         with col1:
             uploaded_files = st.file_uploader(
@@ -114,7 +113,7 @@ if st.session_state.selected_session:
                     pdf_file_path = save_uploaded_file(uploaded_file)
                     pdf_file_name = uploaded_file.name
 
-                    # Add PDF to session data
+                    # Add PDF to session
                     sessions = add_pdf_to_session(
                         sessions,
                         session_id,
@@ -122,13 +121,13 @@ if st.session_state.selected_session:
                         pdf_file_name,
                     )
 
-                    # Process the PDF for embedding in this session's vector store
+                    # Process the PDF for embedding
                     set_pdf_in_memory(session_id, pdf_file_path, embedding_model)
 
             st.success(f"Added {len(uploaded_files)} document(s)")
             st.rerun()
 
-    # Paper Search Functionality
+    # Search Papers Section
     with st.expander("Search Papers", expanded=False):
         search_keywords = st.text_input("Enter keywords (comma-separated)")
         col1, col2 = st.columns([1, 1])
@@ -145,7 +144,7 @@ if st.session_state.selected_session:
                 selected_sources.append("semantic_scholar")
 
             with st.spinner("Searching..."):
-                search_results = search_papers(search_keywords, selected_sources)
+                search_results = search_papers(search_keywords, selected_sources, max_results=2)
 
             if search_results:
                 st.subheader("Search Results")
@@ -154,23 +153,85 @@ if st.session_state.selected_session:
                         st.write(f"**{paper['title']}** ({paper['year']})")
                         st.write(f"**Authors:** {paper.get('authors', 'Unknown')}")
                         st.write(f"**Abstract:** {paper['abstract']}")
+
                         col1, col2 = st.columns([1, 1])
-                        with col1:
-                            if st.button("Download", key=f"download_{paper['title']}"):
-                                download_pdf(paper, paper['source'])
-                                st.success("Downloaded successfully")
+
+                        # Download PDF Button
+                        if paper["pdf_url"]:  
+                            with col1:
+                                st.download_button(
+                                    label="Download PDF",
+                                    data=requests.get(paper["pdf_url"]).content,
+                                    file_name=f"{paper['title']}.pdf",
+                                    mime="application/pdf",
+                                    key=f"download_{paper['title']}"
+                                )
+                        else:
+                            with col1:
+                                st.warning("No PDF available.")
+
+                        # Use This to Chat Button
+                        def download_pdf_locally(paper):
+                            """Downloads the PDF locally and returns the file path."""
+                            if not paper["pdf_url"]:
+                                return None
+
+                            response = requests.get(paper["pdf_url"])
+                            if response.status_code == 200:
+                                file_path = os.path.join("uploaded_papers", f"{paper['title']}.pdf")
+                                with open(file_path, "wb") as f:
+                                    f.write(response.content)
+                                return file_path
+                            return None
+
                         with col2:
-                            if st.button("Chat with this Paper", key=f"chat_{paper['title']}"):
-                                file_path = download_pdf(paper, paper['source'])
+                            if st.button("Use This to Chat", key=f"chat_{paper['title']}"):
+                                file_path = download_pdf_locally(paper)
+
                                 if file_path:
+                                    # Add to session like an uploaded PDF
                                     sessions = add_pdf_to_session(
                                         sessions,
                                         session_id,
                                         file_path,
-                                        paper['title'],
+                                        paper["title"]
                                     )
+
+                                    # Process with embeddings
                                     set_pdf_in_memory(session_id, file_path, embedding_model)
-                                    st.success("Added to session")
+
+                                    st.success("Added to session. Now you can chat with this paper!")
                                     st.rerun()
+                                else:
+                                    st.error("Failed to download PDF.")
+    # Display conversation
+    st.subheader("Conversation")
+    conversation = get_session_conversation(sessions, session_id)
+    for message in conversation:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    if prompt := st.chat_input("Ask me about anything"):
+        # Get last 5 conversation turns
+        last_5_messages = conversation[-5:]
+        message_user = {"role": "user", "content": prompt}
+        sessions = add_message_to_session(sessions, session_id, message_user)
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        with st.chat_message("assistant"):
+            # Retrieve relevant documents from vector store
+            context = retrieve_pdfdocument_from_vector(session_id, prompt)
+
+            # Get chat response with context from relevant documents
+            response_text = get_chat_response(
+                user_message=prompt, llm=llm, context=context["context"]
+            )
+
+            # Display response
+            response = st.write(response_text)
+
+        message_assistant = {"role": "assistant", "content": response_text}
+        sessions = add_message_to_session(sessions, session_id, message_assistant)
 else:
     st.info("Please select or create a session to start chatting")

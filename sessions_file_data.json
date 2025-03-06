@@ -22,5 +22,11 @@
             "name": "2206.02119v1.pdf",
             "path": "uploads\\2206.02119v1.pdf"
         }
+    ],
+    "search-paper test-1": [
+        {
+            "name": "On the Robustness of AlphaFold_ A COVID-19 Case Study.pdf",
+            "path": "uploads\\On the Robustness of AlphaFold_ A COVID-19 Case Study.pdf"
+        }
     ]
 }
