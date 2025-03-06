@@ -3,7 +3,6 @@ from modules.pdf_processor import get_pdf_elements
 from modules.embeddings import get_embedding_model, pdf_chunkify
 from modules.vector_store import (
     add_pdfdocument_to_vector,
-    retrieve_pdfdocument_from_vector,
     init_vector_store,
     clear_vector_store,
 )

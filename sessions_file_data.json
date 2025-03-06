@@ -4,5 +4,11 @@
             "name": "QA Metrics and Sample.pdf",
             "path": "uploads\\QA Metrics and Sample.pdf"
         }
+    ],
+    "paper test": [
+        {
+            "name": "Conf4_IEEE__Effective_Noise_Reduction_using_Bi_LSTM_and_Ethylene_Detection_in_Bio_Nano_sensors__CNT__Data.pdf",
+            "path": "uploads\\Conf4_IEEE__Effective_Noise_Reduction_using_Bi_LSTM_and_Ethylene_Detection_in_Bio_Nano_sensors__CNT__Data.pdf"
+        }
     ]
 }
