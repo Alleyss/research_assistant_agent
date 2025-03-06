@@ -1,12 +1,12 @@
 from utils.preprocessing import get_gemini_api_key, get_gemini_llm, pdf_loader
-from modules.pdf_processor import get_pdf_elements
-from modules.embeddings import get_embedding_model, pdf_chunkify
-from modules.vector_store import (
+from modules.rag.pdf_processor import get_pdf_elements
+from modules.rag.embeddings import get_embedding_model, pdf_chunkify
+from modules.rag.vector_store import (
     add_pdfdocument_to_vector,
     init_vector_store,
     clear_vector_store,
 )
-from modules.llm_generate import generate
+from modules.rag.llm_generate import generate
 
 
 def init_model_in_memory():
@@ -24,14 +24,13 @@ def set_pdf_in_memory(session_id, pdf_path, embedding_model):
 
     ## VECTOR STORE
     init_vector_store(session_id, embedding_model)
-    add_pdfdocument_to_vector(session_id, pdf_chunks)    
+    add_pdfdocument_to_vector(session_id, pdf_chunks)
     print(f"Adding PDF to vector store : {pdf_path}")
-
 
 
 def get_chat_response(user_message, llm, context):
     response = generate(user_message, llm, context)
-    return response['answer']
+    return response["answer"]
 
 
 def rebuild_session_vector_store(session_id, pdf_files, embedding_model):

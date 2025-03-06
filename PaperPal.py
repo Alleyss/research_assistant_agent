@@ -1,12 +1,12 @@
 import streamlit as st
-from response_utils import (
+from modules.process_controller import (
     get_chat_response,
     init_model_in_memory,
     set_pdf_in_memory,
     rebuild_session_vector_store,
 )
-from modules.vector_store import clear_vector_store, retrieve_pdfdocument_from_vector
-from sessions_utils import (
+from modules.rag.vector_store import clear_vector_store, retrieve_pdfdocument_from_vector
+from modules.chat_db.chat_session_utils import (
     add_pdf_to_session,
     load_sessions,
     add_new_session,
