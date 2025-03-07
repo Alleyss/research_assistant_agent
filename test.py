@@ -7,7 +7,10 @@ from modules.process_controller import (
     set_pdf_in_memory,
     rebuild_session_vector_store,
 )
-from modules.rag.vector_store import clear_vector_store, retrieve_pdfdocument_from_vector
+from modules.rag.vector_store import (
+    clear_vector_store,
+    retrieve_pdfdocument_from_vector,
+)
 from modules.chat_db.chat_session_utils import (
     add_pdf_to_session,
     load_sessions,
@@ -144,7 +147,9 @@ if st.session_state.selected_session:
                 selected_sources.append("semantic_scholar")
 
             with st.spinner("Searching..."):
-                search_results = search_papers(search_keywords, selected_sources, max_results=2)
+                search_results = search_papers(
+                    search_keywords, selected_sources, max_results=2
+                )
 
             if search_results:
                 st.subheader("Search Results")
@@ -157,14 +162,14 @@ if st.session_state.selected_session:
                         col1, col2 = st.columns([1, 1])
 
                         # Download PDF Button
-                        if paper["pdf_url"]:  
+                        if paper["pdf_url"]:
                             with col1:
                                 st.download_button(
                                     label="Download PDF",
                                     data=requests.get(paper["pdf_url"]).content,
                                     file_name=f"{paper['title']}.pdf",
                                     mime="application/pdf",
-                                    key=f"download_{paper['title']}"
+                                    key=f"download_{paper['title']}",
                                 )
                         else:
                             with col1:
@@ -178,29 +183,34 @@ if st.session_state.selected_session:
 
                             response = requests.get(paper["pdf_url"])
                             if response.status_code == 200:
-                                file_path = os.path.join("uploaded_papers", f"{paper['title']}.pdf")
+                                file_path = os.path.join(
+                                    "uploaded_papers", f"{paper['title']}.pdf"
+                                )
                                 with open(file_path, "wb") as f:
                                     f.write(response.content)
                                 return file_path
                             return None
 
                         with col2:
-                            if st.button("Use This to Chat", key=f"chat_{paper['title']}"):
+                            if st.button(
+                                "Use this in Chat", key=f"chat_{paper['title']}"
+                            ):
                                 file_path = download_pdf_locally(paper)
 
                                 if file_path:
                                     # Add to session like an uploaded PDF
                                     sessions = add_pdf_to_session(
-                                        sessions,
-                                        session_id,
-                                        file_path,
-                                        paper["title"]
+                                        sessions, session_id, file_path, paper["title"]
                                     )
 
                                     # Process with embeddings
-                                    set_pdf_in_memory(session_id, file_path, embedding_model)
+                                    set_pdf_in_memory(
+                                        session_id, file_path, embedding_model
+                                    )
 
-                                    st.success("Added to session. Now you can chat with this paper!")
+                                    st.success(
+                                        "Added to session. Now you can chat with this paper!"
+                                    )
                                     st.rerun()
                                 else:
                                     st.error("Failed to download PDF.")

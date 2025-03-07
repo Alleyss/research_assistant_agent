@@ -1,5 +1,4 @@
 from utils.preprocessing import get_gemini_api_key, get_gemini_llm, pdf_loader
-from modules.rag.pdf_processor import get_pdf_elements
 from modules.rag.embeddings import get_embedding_model, pdf_chunkify
 from modules.rag.vector_store import (
     add_pdfdocument_to_vector,
