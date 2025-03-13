@@ -1,7 +1,7 @@
 # ResearchGPT
 
 An AI-powered assistant designed to help researchers efficiently process and extract insights from academic papers and PDF documents.
-
+![researchgpt image 01](https://github.com/user-attachments/assets/8319c2b3-f336-48df-8b6a-7eeac0eba776)
 ## 📚 Overview
 
 The Virtual Research Assistant is a modular, AI-powered tool that ingests academic papers and provides:
