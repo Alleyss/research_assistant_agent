@@ -1,4 +1,6 @@
-# ResearchGPT
+<h1 align="center">
+  <b>ResearchGPT</b>
+</h1>
 
 An AI-powered assistant designed to help researchers efficiently process and extract insights from academic papers and PDF documents.
 
