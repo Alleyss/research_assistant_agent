@@ -20,6 +20,7 @@ from modules.chat_db.chat_session_utils import (
     get_session_pdfs,
     remove_pdf_from_session,
 )
+from modules.ui.utils.pdf_download import download_pdf_for_chat
 from utils.save_files import save_uploaded_file
 from modules.fetch_papers.search_paper import search_papers
 
@@ -148,7 +149,7 @@ if st.session_state.selected_session:
 
             with st.spinner("Searching..."):
                 search_results = search_papers(
-                    search_keywords, selected_sources, max_results=2
+                    search_keywords, selected_sources, max_results=1
                 )
 
             if search_results:
@@ -176,26 +177,12 @@ if st.session_state.selected_session:
                                 st.warning("No PDF available.")
 
                         # Use This to Chat Button
-                        def download_pdf_locally(paper):
-                            """Downloads the PDF locally and returns the file path."""
-                            if not paper["pdf_url"]:
-                                return None
-
-                            response = requests.get(paper["pdf_url"])
-                            if response.status_code == 200:
-                                file_path = os.path.join(
-                                    "uploaded_papers", f"{paper['title']}.pdf"
-                                )
-                                with open(file_path, "wb") as f:
-                                    f.write(response.content)
-                                return file_path
-                            return None
-
                         with col2:
                             if st.button(
                                 "Use this in Chat", key=f"chat_{paper['title']}"
                             ):
-                                file_path = download_pdf_locally(paper)
+                                file_path = download_pdf_for_chat(paper)
+                                print(file_path)
 
                                 if file_path:
                                     # Add to session like an uploaded PDF

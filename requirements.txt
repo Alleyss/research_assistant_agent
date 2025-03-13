@@ -10,6 +10,7 @@ unstructured[all-docs]
 
 # Keyword Extraction & Q&A
 langchain
+agno
 # lets use gemini, has bigger token size and free
 # pip install -q -U google-genai
 # pip install -U langchain-google-genai

@@ -5,7 +5,10 @@ from modules.process_controller import (
     set_pdf_in_memory,
     rebuild_session_vector_store,
 )
-from modules.rag.vector_store import clear_vector_store, retrieve_pdfdocument_from_vector
+from modules.rag.vector_store import (
+    clear_vector_store,
+    retrieve_pdfdocument_from_vector,
+)
 from modules.chat_db.chat_session_utils import (
     add_pdf_to_session,
     load_sessions,
@@ -18,7 +21,7 @@ from modules.chat_db.chat_session_utils import (
 from utils.save_files import save_uploaded_file
 
 llm, embedding_model = init_model_in_memory()
-st.title("PaperPal")
+st.title("ResearchGPT")
 
 # Load existing sessions
 sessions = load_sessions()

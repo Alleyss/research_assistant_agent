@@ -5,7 +5,7 @@ import shutil
 from semanticscholar import SemanticScholar
 
 # Ensure a directory exists for PDFs
-PDF_DIR = "downloads"
+PDF_DIR = "uploads"
 os.makedirs(PDF_DIR, exist_ok=True)
 
 
