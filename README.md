@@ -1,4 +1,4 @@
-# Virtual Research Assistant for Academic Papers
+# ResearchGPT
 
 An AI-powered assistant designed to help researchers efficiently process and extract insights from academic papers and PDF documents.
 
