@@ -25,7 +25,7 @@ from modules.fetch_papers.search_paper import search_papers
 
 # Initialize LLM and Embedding Model
 llm, embedding_model = init_model_in_memory()
-st.title("PaperPal")
+st.title("ResearchGPT")
 
 # Load existing sessions
 sessions = load_sessions()
