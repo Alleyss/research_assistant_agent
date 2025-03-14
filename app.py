@@ -131,7 +131,7 @@ if st.session_state.selected_session:
             st.rerun()
 
     # Display conversation
-    st.subheader("Conversation")
+    # st.subheader("Conversation")
     conversation = get_session_conversation(sessions, session_id)
     for message in conversation:
         with st.chat_message(message["role"]):

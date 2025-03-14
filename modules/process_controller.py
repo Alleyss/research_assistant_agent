@@ -28,6 +28,7 @@ def set_pdf_in_memory(session_id, pdf_path, embedding_model):
 
 
 def get_chat_response(user_message, llm, context):
+    
     response = generate(user_message, llm, context)
     return response["answer"]
 

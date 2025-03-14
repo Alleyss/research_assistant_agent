@@ -11,6 +11,47 @@ os.makedirs(PDF_DIR, exist_ok=True)
 
 # arXiv Search (Returns List of Dicts)
 def search_arxiv(query, max_results=5):
+    """
+    Searches for academic papers on arXiv based on the given query.
+
+    This function uses the arXiv API to retrieve a list of research papers that match the specified query.
+    It fetches details such as the paper's title, publication year, abstract, authors, and URLs for access.
+
+    Parameters:
+    -----------
+    query : str
+        The search query string used to find relevant papers on arXiv.
+    max_results : int, optional
+        The maximum number of papers to retrieve (default is 5).
+
+    Returns:
+    --------
+    list of dict
+        A list of dictionaries where each dictionary contains:
+        - "title" (str): The title of the paper.
+        - "year" (int): The year the paper was published.
+        - "abstract" (str): A summary of the paper.
+        - "authors" (str): A comma-separated string of author names.
+        - "url" (str): The arXiv page URL for the paper.
+        - "pdf_url" (str): The direct link to the paper's PDF.
+        - "source" (str): A constant value "arxiv" to indicate the data source.
+
+    Example:
+    --------
+    >>> search_arxiv("deep learning", max_results=3)
+    [
+        {
+            "title": "Deep Learning for AI",
+            "year": 2023,
+            "abstract": "This paper explores...",
+            "authors": "John Doe, Jane Smith",
+            "url": "https://arxiv.org/abs/1234.56789",
+            "pdf_url": "https://arxiv.org/pdf/1234.56789.pdf",
+            "source": "arxiv"
+        },
+        ...
+    ]
+    """
     client = arxiv.Client()
     search = arxiv.Search(
         query=query, max_results=max_results, sort_by=arxiv.SortCriterion.Relevance

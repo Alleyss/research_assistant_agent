@@ -22,7 +22,7 @@ from modules.chat_db.chat_session_utils import (
 )
 from modules.ui.utils.pdf_download import download_pdf_for_chat
 from utils.save_files import save_uploaded_file
-from modules.fetch_papers.search_paper import search_papers
+from modules.agent.tools.search_paper import search_papers
 
 # Initialize LLM and Embedding Model
 llm, embedding_model = init_model_in_memory()
